@@ -1,10 +1,14 @@
+//Nicole Fernández
+//E5: Sonido
+//Velos de relojes
+
 import ddf.minim.*;
 
 Minim minim;
 AudioPlayer player;
 
 void setup(){
-  size (600, 600);
+  size (800, 800);
   background (255);
   noStroke ();
   minim= new Minim (this);
