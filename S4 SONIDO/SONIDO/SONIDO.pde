@@ -1,35 +1,54 @@
 import processing.sound.*;
-import processing. sound. FFT;
+import processing.sound.FFT;
 
 SoundFile soundfile;
 FFT fft;
 
-int x=0;
-int y=70;
+int bands = 256;
+
+float[] spectrum = new float[bands];
+
+int x = 0;
+int y = 70;
 
 float radio;
 
 void setup(){
   size (800, 800);
-  background (0);
-  frameRate(10);
+  background (255);
+ 
+  soundfile = new SoundFile(this, "Clocks.mp3");
+ 
+  fft = new FFT (this, bands);
   
-  soundfile = new SoundFile (this, "Clocks.mp3");
+  fft.input (soundfile);
+  
+  soundfile.play();
 }
 
 void draw (){
- float numAleatorio=random (0,1);
- radio= (numAleatorio * width);
+  fft.analyze(spectrum);
+  
+  //float randomFreq = random (255)
+ float level = spectrum[50] * 100;
+ radio= (level * width);
  
- fill (255, 30);
- stroke (random (100, 150), random (150, 255), random (200, 255));
+ radio = constrain (radio, 10, 500);
+ 
+ noStroke ();
+ 
+ fill (random (180, 200), random (210, 230), random(240, 255));
  ellipse (x, y, radio, radio);
+ fill (random (240, 250), random (200, 205), random (245, 255));
+ rect (x, y, radio, radio);
+ fill (random (220, 240), random (180, 200), random (240, 255));
+ arc (x, y, radio, radio, 2, 5);
  
- x += 70;
+ x += 10;
  
  if (x> width){
-   x=0;
-   y=y + 70;
+   x = 0;
+   y = y + 10;
  }
  
  if (y > height){
