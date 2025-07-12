@@ -1,3 +1,6 @@
+// Nicole Fernández Gómez
+// E6.2: Estados y Objetos
+
 PImage img1;
 PImage img2;
 int index = 0;
